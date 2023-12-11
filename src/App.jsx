@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { calculateInvestmentResults, formatter } from "./util/investment";
+import UserInput from "./components/UserInput";
 
 function App() {
   const [userInvestment, setUserInvestment] = useState({
@@ -9,11 +10,11 @@ function App() {
     duration: 10,
   });
 
-  const handleInputChange = (event, key) => {
+  const handleInputChange = (name, value) => {
     setUserInvestment((previousUserInvestment) => {
       return {
         ...previousUserInvestment,
-        [key]: parseFloat(event.target.value),
+        [name]: value,
       };
     });
   };
@@ -23,46 +24,32 @@ function App() {
     <>
       <div id="user-input">
         <div className="input-group">
-          <div>
-            <label>Initial Investment</label>
-            <input
-              type="number"
-              min="0"
-              value={userInvestment.initialInvestment}
-              onChange={(event) =>
-                handleInputChange(event, "initialInvestment")
-              }
-            />
-          </div>
-          <div>
-            <label>Annual Investment</label>
-            <input
-              type="number"
-              min="0"
-              value={userInvestment.annualInvestment}
-              onChange={(event) => handleInputChange(event, "annualInvestment")}
-            />
-          </div>
+          <UserInput
+            label="Initial Investment"
+            name="initialInvestment"
+            value={userInvestment.initialInvestment}
+            onChangeHandler={handleInputChange}
+          />
+          <UserInput
+            label="Annual Investment"
+            name="annualInvestment"
+            value={userInvestment.annualInvestment}
+            onChangeHandler={handleInputChange}
+          />
         </div>
         <div className="input-group">
-          <div>
-            <label>Expected Return</label>
-            <input
-              type="number"
-              min="0"
-              value={userInvestment.expectedReturn}
-              onChange={(event) => handleInputChange(event, "expectedReturn")}
-            />
-          </div>
-          <div>
-            <label>Duration</label>
-            <input
-              type="number"
-              min="0"
-              value={userInvestment.duration}
-              onChange={(event) => handleInputChange(event, "duration")}
-            />
-          </div>
+          <UserInput
+            label="Expected Return"
+            name="expectedReturn"
+            value={userInvestment.expectedReturn}
+            onChangeHandler={handleInputChange}
+          />
+          <UserInput
+            label="Duration"
+            name="duration"
+            value={userInvestment.duration}
+            onChangeHandler={handleInputChange}
+          />
         </div>
       </div>
       <table id="result" className="center">
