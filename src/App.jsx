@@ -19,6 +19,9 @@ function App() {
     });
   };
 
+  const isValid = !isNaN(
+    Object.values(userInvestment).reduce((sum, item) => sum + item, 0)
+  );
   const result = calculateInvestmentResults(userInvestment);
   return (
     <>
@@ -63,17 +66,18 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {result.map((item) => {
-            return (
-              <tr key={item.year}>
-                <td>{item.year}</td>
-                <td>{formatter.format(item.valueEndOfYear)}</td>
-                <td>{formatter.format(item.interest)}</td>
-                <td>{formatter.format(item.totalInterest)}</td>
-                <td>{formatter.format(item.investedCapital)}</td>
-              </tr>
-            );
-          })}
+          {isValid &&
+            result.map((item) => {
+              return (
+                <tr key={item.year}>
+                  <td>{item.year}</td>
+                  <td>{formatter.format(item.valueEndOfYear)}</td>
+                  <td>{formatter.format(item.interest)}</td>
+                  <td>{formatter.format(item.totalInterest)}</td>
+                  <td>{formatter.format(item.investedCapital)}</td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </>

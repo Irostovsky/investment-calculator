@@ -6,7 +6,13 @@ const UserInput = ({ label, name, value, onChangeHandler }) => {
   return (
     <div>
       <label>{label}</label>
-      <input type="number" min="0" value={value} onChange={handleInputChange} />
+      <input
+        type="number"
+        min="0"
+        value={value}
+        onChange={handleInputChange}
+        required
+      />
     </div>
   );
 };
